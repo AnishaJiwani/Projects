@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Dropdown, Input, Row, Select, Typography } from 'antd';
+import {  Col, Select, Typography } from 'antd';
 import DeleteQuestion from './DeleteQuestion';
 import Question from './Question';
 import MaxChoice from './MaxChoice';
 import Choice from './Choice';
 import Check from './Check';
-
-
-
 const {Text} = Typography;
 
 const Questions = () => {
@@ -37,28 +34,20 @@ const Questions = () => {
     ]
 
     const handleChange = (value) => {
-        console.log(`selected ${value}`);
         setType(value);
       };
-
-     
 
       useEffect(()=>{
         console.log(type)
       },[type])
       
   return (
-    
    <>
- 
- <Col className='info-title'   >
-                  Questions
-                </Col>
-           <Col className='questions-align'>
-            <Text strong >Type</Text>
-            <Col>
-            <Select
-                // placeholder="Choose Question Type"
+    <Col className='info-title'>Questions</Col>
+        <Col className='questions-align'>
+          <Text strong >Type</Text>
+          <Col>
+          <Select
                 style={{
                 width: '90%',
                 textAlign:'left',
@@ -68,14 +57,13 @@ const Questions = () => {
                 onChange={handleChange}
                 options={items}
                 value={type}
-            />
-            
+            />  
             </Col>   
             {/* Paragraph */}
             {type && type === 'Paragraph' && 
             <>       
             <Question/>
-              <DeleteQuestion setType={setType}/> 
+            <DeleteQuestion setType={setType}/> 
             </>
             }
 
@@ -97,7 +85,6 @@ const Questions = () => {
             <Choice/>
             <Check text='Enable "Other" options'/>
             <DeleteQuestion setType={setType}/> 
-           
             </>
             } 
 
@@ -112,7 +99,6 @@ const Questions = () => {
             </>
             } 
            </Col>
-   
     </> 
   )
 }

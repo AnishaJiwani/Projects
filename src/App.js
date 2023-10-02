@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row, Divider, Input, Upload, Button, Card, Checkbox, Switch, Typography } from 'antd';
 import './index.css';
-import {UploadOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import RowDetails from './components/RowDetails';
+import { Col, Row, Divider, Input, Upload, Button, Card, Checkbox, Switch, Typography } from 'antd';
+import {UploadOutlined, PlusOutlined } from '@ant-design/icons';
 import Questions from './components/Questions';
 // const { Meta } = Card;
 const {Text} = Typography;
 const App = () =>{
- const [clicked, setClicked] = useState(false) 
- const [previewOpen, setPreviewOpen] = useState(false);
- const [previewImage, setPreviewImage] = useState('');
- const [previewTitle, setPreviewTitle] = useState('');
+const [clicked, setClicked] = useState(false) 
+const [previewOpen, setPreviewOpen] = useState(false);
+const [previewImage, setPreviewImage] = useState('');
+const [previewTitle, setPreviewTitle] = useState('');
 
- const getBase64 = (file) =>
+const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -20,12 +19,12 @@ const App = () =>{
     reader.onerror = (error) => reject(error);
   });
 
-  const initialPersonalInfo = {
+const initialPersonalInfo = {
     fname:'',
     lname:'',
     email:'',
   };
-  const initialProfile = [
+const initialProfile = [
     {
         id:1,
         name:'Education',
@@ -48,9 +47,9 @@ const App = () =>{
         switch:false
       
   }]
-  const [fileList, setFileList] = useState([]);
-  const [personalInfo, setPersonalInfo] = useState(initialPersonalInfo)
-  const [profileFlag, setProfileFlag] = useState(initialProfile)
+const [fileList, setFileList] = useState([]);
+const [personalInfo, setPersonalInfo] = useState(initialPersonalInfo)
+const [profileFlag, setProfileFlag] = useState(initialProfile)
 
 const handleChange = async (info) => {
     console.log("Info:", info)
@@ -69,17 +68,15 @@ const handleChange = async (info) => {
     setPreviewOpen(true);
     setPreviewTitle(info.file.name || info.file.url.substring(info.file.url.lastIndexOf('/') + 1));
 };
-console.log("Filelist:", fileList)
-  const handleCancel = () => setPreviewOpen(false);
+
 const addQuestion = () =>{
-    console.log("Button")
     setClicked(true);
 }
 useEffect(()=>{
     console.log(fileList)
  },[fileList])
 
- const uploadButton = (
+const uploadButton = (
     <Col className='upload'>
        <div >
     <UploadOutlined style={{ fontSize: '33px' }} />
@@ -95,12 +92,12 @@ useEffect(()=>{
     </Col>
   );
 
-  const handlePersonalInfo = () =>{
+const handlePersonalInfo = () =>{
     console.log(personalInfo)
     console.log(flagState)
   }
 
-  const initialFlagState = [
+const initialFlagState = [
   {
     id:1,
     name:'Phone',
@@ -151,9 +148,9 @@ useEffect(()=>{
   }
 ]
 
-  const [flagState, setFlagState] = useState(initialFlagState);
+const [flagState, setFlagState] = useState(initialFlagState);
 
-  const handleCheckbox = (name) =>{
+const handleCheckbox = (name) =>{
     const newVal = flagState.map((item) => {
         if (item.name === name) {
           return {
@@ -169,7 +166,7 @@ useEffect(()=>{
       setFlagState(newVal);
   }
 
-  const handleCheckboxProfile = (name) =>{
+const handleCheckboxProfile = (name) =>{
     const newVal = profileFlag.map((item) => {
         if (item.name === name) {
           return {
@@ -186,7 +183,7 @@ useEffect(()=>{
   }
   
     
-  const handleSwitch = (name) =>{
+const handleSwitch = (name) =>{
     let newVal = flagState.map((item) => {
         if (item.name === name) {
           return {
@@ -199,12 +196,12 @@ useEffect(()=>{
           };
         }
       });
-
+      console.log("NewVal:", newVal)
       setFlagState(newVal);  
       
   }
 
-  const handleSwitchProfile = (name) =>{
+const handleSwitchProfile = (name) =>{
     const newVal = profileFlag.map((item) => {
         if (item.name === name) {
           return {
@@ -220,7 +217,7 @@ useEffect(()=>{
       setProfileFlag(newVal);
   }
   
-  const handleInput = (event, id) =>{
+const handleInput = (event, id) =>{
     const inputVal = flagState.map((item) =>{
         if (item.id === id) {
             return {
@@ -236,7 +233,7 @@ useEffect(()=>{
     setFlagState(inputVal);
   }
 
-  const handleInputProfile = (event, id) =>{
+const handleInputProfile = (event, id) =>{
     const inputVal = profileFlag.map((item) =>{
         if (item.id === id) {
             return {
@@ -266,16 +263,9 @@ return(
                     Upload cover image
                 </Col>
             <Col className='cover-image' span={8} offset={3}>
-            {/* <Col className='upload'>
-            <Col><UploadOutlined style={{ fontSize: '33px' }} /></Col>
-            <Col><Text strong>Upload cover image</Text></Col>
-            <Col><Text type='secondary'>16:9 ratio is recommended. Max image size 1mb</Text></Col>
-            </Col> */}
              <>
              {}
       <Upload
-        //action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-        //listType="picture-card"
         fileList={fileList}
         onChange={handleChange}
       >
@@ -317,10 +307,6 @@ return(
                        
                 })}
                 <Button onClick={()=>handlePersonalInfo()} style={{background:'green', color:'white', marginTop:'10px'}}>Save</Button>
-                {/* <Row style={{padding:'10px'}}>
-                <Button onClick={addQuestion} type="dashed" icon={<PlusOutlined />} style={{marginRight:'5px'}}  />
-                <Col>Add a question</Col>
-            </Row>     */}
             </Col>
       
        {/* Profile */}
@@ -341,8 +327,7 @@ return(
                     </Col>
                     <Col ><Switch checked={item.switch} onChange={()=>handleSwitchProfile(item.name)} /><Text>Hide</Text></Col> 
                       </Row>
-                )
-                       
+                )          
                 })}
                 <Row style={{padding:'10px'}}>
                 <Button onClick={addQuestion} type="dashed" icon={<PlusOutlined />} style={{marginRight:'5px'}}  />
@@ -354,9 +339,7 @@ return(
             <Col span={8} offset={3}>
             {clicked ? <Questions/> : <></>} 
             </Col>
-           
             </Row>
-   
   </div>
 )
 }
